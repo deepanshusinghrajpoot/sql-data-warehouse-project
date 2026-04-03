@@ -1,28 +1,35 @@
 
--- 🚀 LOAD DATA INFILE — Keyword Explanation (Short Notes)
+-- LOAD DATA INFILE
+--===================
 
--- 🔹 MAIN COMMAND
+-- MAIN COMMAND
+-----------------
 -- LOAD DATA INFILE 'file_path'
--- 👉 Bulk loads CSV file into MySQL table (FASTEST method)
+-- Bulk loads CSV file into MySQL table (FASTEST method)
 
--- 🔹 TARGET TABLE
+-- TARGET TABLE
+----------------
 -- INTO TABLE bronze_crm_cust_info
--- 👉 Specifies where data will be loaded
+-- Specifies where data will be loaded
 
--- 🔹 FILE FORMAT
+-- FILE FORMAT
+---------------
 -- FIELDS TERMINATED BY ','
--- 👉 Column separator (comma-separated values)
+-- Column separator (comma-separated values)
 
 -- ENCLOSED BY '"'
--- 👉 Handles values inside quotes ("John Doe")
+------------------
+--  Handles values inside quotes ("John Doe")
 
 -- LINES TERMINATED BY '\n'
--- 👉 Each row ends with newline
+----------------------------
+-- Each row ends with newline
 
 -- IGNORE 1 ROWS
--- 👉 Skips header row (column names)
+------------------
+-- Skips header row (column names)
 
--- 🔹 USER VARIABLES (MOST IMPORTANT)
+-- USER VARIABLES (MOST IMPORTANT)
 -- (
 --  @cst_id,
 --  @cst_key,
@@ -34,47 +41,48 @@
 --  @extra
 -- )
 
--- 👉 Reads CSV data into TEMP variables (not directly into table)
+-- Reads CSV data into TEMP variables (not directly into table)
 
 -- WHY IMPORTANT?
 -- - Prevents errors from dirty data
 -- - Handles missing values
 -- - Avoids datatype issues
 
--- 🔹 EXTRA VARIABLE (🔥 KEY TRICK)
+-- EXTRA VARIABLE
+------------------
 -- @extra
 
--- 👉 Absorbs:
+-- - Absorbs:
 -- - Extra columns
 -- - Broken rows
 -- - Column mismatch
 
--- 👉 Prevents:
+-- Prevents:
 -- Error 1261 (column count mismatch)
 
--- 🔹 SET CLAUSE (DATA MAPPING)
+-- SET CLAUSE (DATA MAPPING)
 -- Maps variables → actual table columns
 
--- 🔹 NULLIF FUNCTION
+-- NULLIF FUNCTION
 -- NULLIF(@value, '')
 
--- 👉 Converts:
+-- Converts:
 -- '' (empty string) → NULL
 
--- 👉 Prevents:
+-- Prevents:
 -- - datatype errors
 -- - incorrect values
 
--- 🎯 FINAL FLOW
+-- FINAL FLOW
 -- CSV File → @variables → SET mapping → Table (Bronze)
 
--- 🔥 KEY IDEA
+-- KEY IDEA
 -- @variables = safety layer
 -- @extra = error absorber
 -- SET = transformation
 -- NULLIF = clean empty values
 
--- 🎯 INTERVIEW LINE
+-- INTERVIEW LINE
 -- "User variables handle dirty data, @extra prevents column mismatch errors,
 -- and SET clause maps and cleans data before inserting into the table."
 
