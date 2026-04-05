@@ -1,32 +1,25 @@
 
--- LOAD DATA INFILE
---===================
+-- LOAD DATA INFILE — Keyword Explanation (Short Notes)
 
 -- MAIN COMMAND
------------------
 -- LOAD DATA INFILE 'file_path'
 -- Bulk loads CSV file into MySQL table (FASTEST method)
 
 -- TARGET TABLE
-----------------
 -- INTO TABLE bronze_crm_cust_info
 -- Specifies where data will be loaded
 
 -- FILE FORMAT
----------------
 -- FIELDS TERMINATED BY ','
 -- Column separator (comma-separated values)
 
 -- ENCLOSED BY '"'
-------------------
---  Handles values inside quotes ("John Doe")
+-- Handles values inside quotes ("John Doe")
 
 -- LINES TERMINATED BY '\n'
-----------------------------
 -- Each row ends with newline
 
 -- IGNORE 1 ROWS
-------------------
 -- Skips header row (column names)
 
 -- USER VARIABLES (MOST IMPORTANT)
@@ -48,11 +41,10 @@
 -- - Handles missing values
 -- - Avoids datatype issues
 
--- EXTRA VARIABLE
-------------------
+-- EXTRA VARIABLE (KEY TRICK)
 -- @extra
 
--- - Absorbs:
+-- Absorbs:
 -- - Extra columns
 -- - Broken rows
 -- - Column mismatch
@@ -60,7 +52,7 @@
 -- Prevents:
 -- Error 1261 (column count mismatch)
 
--- SET CLAUSE (DATA MAPPING)
+-- ET CLAUSE (DATA MAPPING)
 -- Maps variables → actual table columns
 
 -- NULLIF FUNCTION
@@ -203,6 +195,8 @@ Usage Example:
 	 @sls_ship_dt,
 	 @sls_due_dt,
 	 @sls_sales,
+     @sls_quantity,
+     @sls_price,
 	 @extra1,
 	 @extra2,
 	 @extra3
@@ -214,7 +208,9 @@ Usage Example:
 	 sls_order_dt = NULLIF(@sls_order_dt, ''),
 	 sls_ship_dt = NULLIF(@sls_ship_dt, ''),
 	 sls_due_dt = NULLIF(@sls_due_dt, ''),
-	 sls_sales   = NULLIF(@sls_sales, '');
+	 sls_sales   = NULLIF(@sls_sales, ''),
+     sls_quantity = NULLIF(@sls_quantity, ''),
+     sls_price = NULLIF(@sls_price, '');
 
 	-- =========================
 	-- ERP CUSTOMER AZ12
